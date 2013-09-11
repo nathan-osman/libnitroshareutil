@@ -9,5 +9,6 @@ This shared library contains a number of utility classes used by NitroShare clie
 
 In order to build the library, the following dependencies must be met:
 
+ - C++11 compiler
  - Qt 5.0+
 
