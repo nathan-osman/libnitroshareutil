@@ -17,8 +17,10 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(include)
 
 set(SRC
+    src/asynctask.cpp
     src/promise.cpp)
 set(MOC
+    include/nitroshare/util/asynctask.h
     include/nitroshare/util/promise.h)
 
 add_library(nitroshareutil SHARED ${SRC} ${MOC})

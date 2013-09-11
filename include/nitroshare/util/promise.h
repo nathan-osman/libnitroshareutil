@@ -42,7 +42,7 @@ namespace NitroShare
                  * Note: if you are creating a Promise object on the stack, you
                  * must specify false for delete_on_finished.
                  */
-                explicit Promise(bool delete_on_finished = true, QObject * parent = nullptr);
+                Promise(bool delete_on_finished = true, QObject * parent = nullptr);
                 
                 /**
                  * @brief Waits for the promise to finish
