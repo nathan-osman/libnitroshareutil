@@ -9,18 +9,24 @@ set(VERSION_MINOR 1)
 set(VERSION_PATCH 0)
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 # TODO: enable C++11 support
+
 find_package(Qt5Core REQUIRED)
 
-set(SRC "")
-set(MOC "")
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+include_directories(include)
+
+set(SRC
+    src/promise.cpp)
+set(MOC
+    include/nitroshare/util/promise.h)
 
 add_library(nitroshareutil SHARED ${SRC} ${MOC})
 set_target_properties(nitroshareutil PROPERTIES
     VERSION   ${VERSION}
     SOVERSION ${VERSION_MAJOR})
+
+qt5_use_modules(nitroshareutil Core)
 
 install(DIRECTORY include/nitroshare/util
     DESTINATION include/nitroshare)
