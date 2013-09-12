@@ -8,11 +8,25 @@
  * License, or (at your option) any later version.
  */
 
+#include <QMutexLocker>
+
 #include <nitroshare/util/asynctask.h>
+#include "asynctask_p.h"
 
 using namespace NitroShare::Util;
 
 AsyncTask::AsyncTask(QObject * parent)
-    : QObject(parent)
+    : QObject(parent), d(new AsyncTaskPrivate)
 {
+}
+
+AsyncTask::~AsyncTask()
+{
+    delete d;
+}
+
+bool AsyncTask::wasCanceled()
+{
+    QMutexLocker locker(&d->mutex);
+    return d->canceled;
 }

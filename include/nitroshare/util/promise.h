@@ -43,7 +43,7 @@ namespace NitroShare
                  * must specify false for delete_on_finished.
                  */
                 Promise(bool delete_on_finished = true, QObject * parent = nullptr);
-                
+
                 /**
                  * @brief Waits for the promise to finish
                  * @return true if the promise completed
@@ -85,6 +85,16 @@ namespace NitroShare
                  * error(), or completed() signal has been emitted.
                  */
                 void finished();
+
+            public Q_SLOTS:
+
+                /**
+                 * @brief Attempts to cancel the promise
+                 *
+                 * Not all tasks can be canceled, so this slot does not
+                 * guarantee that the canceled() signal will be emitted.
+                 */
+                void cancel();
         };
     }
 }
