@@ -18,10 +18,10 @@ include_directories(include)
 
 set(SRC
     src/asynctask.cpp
-    src/promise.cpp)
+    src/parameterbuilder.cpp)
 set(MOC
     include/nitroshare/util/asynctask.h
-    include/nitroshare/util/promise.h)
+    include/nitroshare/util/parameterbuilder.h)
 
 add_library(nitroshareutil SHARED ${SRC} ${MOC})
 set_target_properties(nitroshareutil PROPERTIES
