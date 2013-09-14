@@ -19,6 +19,8 @@
 #ifndef SAMPLETASK_H
 #define SAMPLETASK_H
 
+#include <QTimer>
+
 #include <nitroshare/util/asynctask.h>
 
 class SampleTask : public NitroShare::Util::AsyncTask
@@ -31,7 +33,12 @@ class SampleTask : public NitroShare::Util::AsyncTask
         virtual bool isCancelable() const { return true; }
         virtual bool isBlocking() const { return false; }
 
-        virtual void run(const QVariantMap & parameters);
+        virtual void run(const QVariantMap & = QVariantMap());
+
+    private:
+
+        QTimer timer;
+        int count;
 };
 
 #endif // SAMPLETASK_H

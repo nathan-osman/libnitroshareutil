@@ -83,7 +83,7 @@ namespace NitroShare
                  * @brief Indicates that the task successfully completed
                  * @param parameters any data returned by the task
                  */
-                void completed(const QVariantMap & parameters);
+                void completed(const QVariantMap & parameters = QVariantMap());
 
                 /**
                  * @brief Indicates that the task has finished
@@ -101,7 +101,7 @@ namespace NitroShare
                  * @brief Runs the task
                  * @param parameters any data expected by the task
                  */
-                virtual void run(const QVariantMap & parameters) = 0;
+                virtual void run(const QVariantMap & parameters = QVariantMap()) = 0;
 
                 /**
                  * @brief Cancels the task

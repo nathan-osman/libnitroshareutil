@@ -25,7 +25,7 @@ class TestAsyncTask : public QObject
 {
     Q_OBJECT
     
-    public Q_SLOTS:
+    private Q_SLOTS:
     
         void run();
 };

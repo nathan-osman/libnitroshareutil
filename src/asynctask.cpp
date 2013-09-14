@@ -18,6 +18,9 @@ using namespace NitroShare::Util;
 AsyncTask::AsyncTask(QObject * parent)
     : QObject(parent), d(new AsyncTaskPrivate)
 {
+    connect(this, &AsyncTask::canceled,  this, &AsyncTask::finished);
+    connect(this, &AsyncTask::error,     this, &AsyncTask::finished);
+    connect(this, &AsyncTask::completed, this, &AsyncTask::finished);
 }
 
 AsyncTask::~AsyncTask()

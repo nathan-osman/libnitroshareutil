@@ -18,7 +18,16 @@
 
 #include "sampletask.h"
 
-void SampleTask::run(const QVariantMap & parameters)
+void SampleTask::run(const QVariantMap &)
 {
-    //...
+    connect(&timer, &QTimer::timeout, [this]()
+    {
+        if(++count > 5)
+            Q_EMIT completed();
+        else
+            Q_EMIT progress(20 * count);
+    });
+
+    timer.start(100);
+    count = 0;
 }
