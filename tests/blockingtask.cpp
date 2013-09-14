@@ -16,9 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QTest>
+
 #include "blockingtask.h"
 
 void BlockingTask::run(const QVariantMap &)
 {
-    //...
+    for(int i = 1; i <= 5; ++i)
+    {
+        QTest::qSleep(100);
+        Q_EMIT progress(i * 20);
+
+        if(wasCanceled())
+        {
+            Q_EMIT canceled();
+            break;
+        }
+    }
+
+    Q_EMIT completed();
 }
