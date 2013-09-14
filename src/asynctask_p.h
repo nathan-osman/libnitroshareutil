@@ -11,8 +11,6 @@
 #ifndef NSU_ASYNCTASK_P_H
 #define NSU_ASYNCTASK_P_H
 
-#include <QMutex>
-
 namespace NitroShare
 {
     namespace Util
@@ -21,7 +19,6 @@ namespace NitroShare
         {
             public:
 
-                QMutex mutex;
                 bool canceled;
         };
     }

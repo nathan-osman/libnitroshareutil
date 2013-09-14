@@ -12,8 +12,8 @@
 #define NSU_ASYNCTASK_H
 
 #include <QObject>
+#include <QVariantMap>
 
-#include <nitroshare/util/promise.h>
 #include "export.h"
 
 namespace NitroShare
@@ -24,9 +24,6 @@ namespace NitroShare
 
         /**
          * @brief Base class for all asynchronous tasks
-         *
-         * Asynchronous tasks that inherit from this class implement the the
-         * actual task to be performed in the virtual run() method.
          */
         class NSU_EXPORT AsyncTask : public QObject
         {
@@ -45,21 +42,71 @@ namespace NitroShare
                  */
                 virtual ~AsyncTask();
 
+            Q_SIGNALS:
+
+                /**
+                 * @brief Indicates the current progress of the task
+                 * @param value an integer between 0 and 100 inclusive
+                 */
+                void progress(int value);
+
+                /**
+                 * @brief Indicates that the task has been canceled
+                 */
+                void canceled();
+
+                /**
+                 * @brief Indicates that an error has occurred
+                 * @param message a description of the error
+                 */
+                void error(const QString & message);
+
+                /**
+                 * @brief Indicates that the task successfully completed
+                 * @param parameters and data returned by the task
+                 */
+                void completed(const QVariantMap & parameters);
+
+                /**
+                 * @brief Indicates that the task has finished
+                 *
+                 * This signal is emitted in addition to canceled(), error(), or
+                 * completed(). If you need to invoke a slot regardless of
+                 * whether the task completes or not, you should use this
+                 * signal.
+                 */
+                void finished();
+
+            public Q_SLOTS:
+
+                virtual void run(const QVariantMap & parameters) = 0;
+                void cancel();
+
             protected:
+
+                /**
+                 * @brief Indicates whether the task emits progress updates
+                 * @return true if the task is progressive
+                 */
+                virtual bool isProgressive() const = 0;
+
+                /**
+                 * @brief Indicates whether the task can be canceled once started
+                 * @return true if the task is cancelable
+                 */
+                virtual bool isCancelable() const = 0;
+
+                /**
+                 * @brief Indicates whether the task must be run in a separate thread
+                 * @return true if the task is blocking
+                 */
+                virtual bool isBlocking() const = 0;
 
                 /**
                  * @brief Indicates whether the task was canceled
                  * @return true if the task was canceled
                  */
                 bool wasCanceled() const;
-
-            protected Q_SLOTS:
-
-                /**
-                 * @brief Performs the task
-                 * @param parameters any data expected by the task
-                 */
-                virtual void run(const QVariantMap & parameters) = 0;
 
             private:
 

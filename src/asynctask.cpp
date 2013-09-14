@@ -8,7 +8,7 @@
  * License, or (at your option) any later version.
  */
 
-#include <QMutexLocker>
+#include <QThread>
 
 #include <nitroshare/util/asynctask.h>
 #include "asynctask_p.h"
@@ -25,8 +25,12 @@ AsyncTask::~AsyncTask()
     delete d;
 }
 
-bool AsyncTask::wasCanceled()
+void AsyncTask::cancel()
 {
-    QMutexLocker locker(&d->mutex);
+    d->canceled = true;
+}
+
+bool AsyncTask::wasCanceled() const
+{
     return d->canceled;
 }
