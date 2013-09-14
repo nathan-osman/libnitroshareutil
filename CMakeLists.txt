@@ -9,7 +9,29 @@ set(VERSION_MINOR 1)
 set(VERSION_PATCH 0)
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-# TODO: enable C++11 support
+#============================================
+# Check to make sure we have a C++11 compiler
+
+# TODO:
+# - check for MSVC++ 2010
+# - report error if no C++11 compiler found
+# - try_compile might be better
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+    if(${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 4.6)
+        message(FATAL_ERROR "GCC 4.6+ is required (" ${CMAKE_CXX_COMPILER_VERSION} " detected).")
+    endif()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x")
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    if(${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 3.1)
+        message(FATAL_ERROR "Clang 3.1+ is required (" ${CMAKE_CXX_COMPILER_VERSION} " detected).")
+    endif()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+endif()
+
+#============================================
 
 find_package(Qt5Core REQUIRED)
 
