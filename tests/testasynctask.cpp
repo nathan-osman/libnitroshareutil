@@ -19,12 +19,12 @@
 #include <QSignalSpy>
 #include <QTest>
 
-#include "sampletask.h"
+#include "nonblockingtask.h"
 #include "testasynctask.h"
 
-void TestAsyncTask::run()
+void TestAsyncTask::testNonBlocking()
 {
-    SampleTask task;
+    NonBlockingTask task;
 
     QSignalSpy progress_spy(&task, SIGNAL(progress(int)));
     QSignalSpy completed_spy(&task, SIGNAL(completed()));
@@ -36,4 +36,9 @@ void TestAsyncTask::run()
     QCOMPARE(progress_spy.count(), 5);
     QCOMPARE(completed_spy.count(), 1);
     QCOMPARE(finished_spy.count(), 1);
+}
+
+void TestAsyncTask::testBlocking()
+{
+    //...
 }

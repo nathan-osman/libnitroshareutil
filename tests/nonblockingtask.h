@@ -16,18 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "sampletask.h"
+#ifndef NONBLOCKINGTASK_H
+#define NONBLOCKINGTASK_H
 
-void SampleTask::run(const QVariantMap &)
+#include <QTimer>
+
+#include <nitroshare/util/asynctask.h>
+
+class NonBlockingTask : public NitroShare::Util::AsyncTask
 {
-    connect(&timer, &QTimer::timeout, [this]()
-    {
-        if(++count > 5)
-            Q_EMIT completed();
-        else
-            Q_EMIT progress(20 * count);
-    });
+    Q_OBJECT
 
-    timer.start(100);
-    count = 0;
-}
+    public:
+
+        virtual bool isProgressive() const { return true; }
+        virtual bool isCancelable() const { return true; }
+        virtual bool isBlocking() const { return false; }
+
+        virtual void run(const QVariantMap & = QVariantMap());
+
+    private:
+
+        QTimer timer;
+        int count;
+};
+
+#endif // NONBLOCKINGTASK_H
