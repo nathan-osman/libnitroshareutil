@@ -42,6 +42,24 @@ namespace NitroShare
                  */
                 virtual ~AsyncTask();
 
+                /**
+                 * @brief Indicates whether the task emits progress updates
+                 * @return true if the task is progressive
+                 */
+                virtual bool isProgressive() const = 0;
+
+                /**
+                 * @brief Indicates whether the task can be canceled once started
+                 * @return true if the task is cancelable
+                 */
+                virtual bool isCancelable() const = 0;
+
+                /**
+                 * @brief Indicates whether the task must be run in a separate thread
+                 * @return true if the task is blocking
+                 */
+                virtual bool isBlocking() const = 0;
+
             Q_SIGNALS:
 
                 /**
@@ -63,7 +81,7 @@ namespace NitroShare
 
                 /**
                  * @brief Indicates that the task successfully completed
-                 * @param parameters and data returned by the task
+                 * @param parameters any data returned by the task
                  */
                 void completed(const QVariantMap & parameters);
 
@@ -79,28 +97,21 @@ namespace NitroShare
 
             public Q_SLOTS:
 
+                /**
+                 * @brief Runs the task
+                 * @param parameters any data expected by the task
+                 */
                 virtual void run(const QVariantMap & parameters) = 0;
+
+                /**
+                 * @brief Cancels the task
+                 *
+                 * Not all tasks can be canceled. You can determine if a task
+                 * can be canceled with isCancelable().
+                 */
                 void cancel();
 
             protected:
-
-                /**
-                 * @brief Indicates whether the task emits progress updates
-                 * @return true if the task is progressive
-                 */
-                virtual bool isProgressive() const = 0;
-
-                /**
-                 * @brief Indicates whether the task can be canceled once started
-                 * @return true if the task is cancelable
-                 */
-                virtual bool isCancelable() const = 0;
-
-                /**
-                 * @brief Indicates whether the task must be run in a separate thread
-                 * @return true if the task is blocking
-                 */
-                virtual bool isBlocking() const = 0;
 
                 /**
                  * @brief Indicates whether the task was canceled
