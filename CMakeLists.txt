@@ -12,23 +12,15 @@ set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 #============================================
 # Check to make sure we have a C++11 compiler
 
-# TODO:
-# - check for MSVC++ 2010
-# - report error if no C++11 compiler found
-# - try_compile might be better
+include(CheckCXXSourceCompiles)
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-    if(${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 4.6)
-        message(FATAL_ERROR "GCC 4.6+ is required (" ${CMAKE_CXX_COMPILER_VERSION} " detected).")
-    endif()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x")
-endif()
-
-if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    if(${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 3.1)
-        message(FATAL_ERROR "Clang 3.1+ is required (" ${CMAKE_CXX_COMPILER_VERSION} " detected).")
-    endif()
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+endif()
+check_cxx_source_compiles("int main() {int * a = nullptr;}" CXX11_COMPILER)
+
+if(NOT CXX11_COMPILER)
+    message(FATAL_ERROR "Compiler does not support C++11")
 endif()
 
 #============================================
