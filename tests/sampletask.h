@@ -16,18 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTASYNCTASK_H
-#define TESTASYNCTASK_H
+#ifndef SAMPLETASK_H
+#define SAMPLETASK_H
 
-#include <QObject>
+#include <nitroshare/util/asynctask.h>
 
-class TestAsyncTask : public QObject
+class SampleTask : public NitroShare::Util::AsyncTask
 {
     Q_OBJECT
-    
-    public Q_SLOTS:
-    
-        void run();
+
+    public:
+
+        virtual bool isProgressive() const { return true; }
+        virtual bool isCancelable() const { return true; }
+        virtual bool isBlocking() const { return false; }
+
+        virtual void run(const QVariantMap & parameters);
 };
 
-#endif // TESTASYNCTASK_H
+#endif // SAMPLETASK_H

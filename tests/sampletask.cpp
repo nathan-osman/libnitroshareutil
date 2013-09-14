@@ -16,18 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TESTASYNCTASK_H
-#define TESTASYNCTASK_H
+#include "sampletask.h"
 
-#include <QObject>
-
-class TestAsyncTask : public QObject
+void SampleTask::run(const QVariantMap & parameters)
 {
-    Q_OBJECT
-    
-    public Q_SLOTS:
-    
-        void run();
-};
-
-#endif // TESTASYNCTASK_H
+    //...
+}

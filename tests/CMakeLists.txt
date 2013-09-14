@@ -7,9 +7,11 @@ find_package(Qt5Test REQUIRED)
 
 set(test_SRC
     main.cpp
+    sampletask.cpp
     testasynctask.cpp
     testparameterbuilder.cpp)
 qt5_wrap_cpp(test_MOC
+    sampletask.h
     testasynctask.h
     testparameterbuilder.h)
 

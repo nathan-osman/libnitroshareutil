@@ -16,5 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QTest>
+
+#include "sampletask.h"
 #include "testasynctask.h"
 
+void TestAsyncTask::run()
+{
+    SampleTask task;
+}
