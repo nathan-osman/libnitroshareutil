@@ -9,7 +9,7 @@ set(VERSION_MINOR 1)
 set(VERSION_PATCH 0)
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-include(cmake/CXX11.cmake)
+include(CXX11)
 
 check_for_cxx11_compiler(CXX11_COMPILER)
 if(NOT CXX11_COMPILER)
