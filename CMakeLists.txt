@@ -9,21 +9,13 @@ set(VERSION_MINOR 1)
 set(VERSION_PATCH 0)
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-#============================================
-# Check to make sure we have a C++11 compiler
+include(cmake/CXX11.cmake)
 
-include(CheckCXXSourceCompiles)
-
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-endif()
-check_cxx_source_compiles("int main() {int * a = nullptr;}" CXX11_COMPILER)
-
+check_for_cxx11_compiler(CXX11_COMPILER)
 if(NOT CXX11_COMPILER)
     message(FATAL_ERROR "Compiler does not support C++11")
 endif()
-
-#============================================
+enable_cxx11()
 
 find_package(Qt5Core REQUIRED)
 
