@@ -2,8 +2,8 @@
 
 This shared library contains a number of utility classes used by NitroShare client applications. Some of these include:
 
- - `Promise` - an object returned by asynchronous tasks that emits signals indicating the progress of the task
- - `AsyncTask` - a base class for asynchronous tasks that run in a separate thread
+ - `AsyncTask` - a base class for asynchronous tasks
+ - `ParameterBuilder` - simple syntax for constructing a `QVariantMap`
 
 ### Requirements
 
