@@ -16,32 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QSignalSpy>
-#include <QTest>
+#ifndef BLOCKINGTASK_H
+#define BLOCKINGTASK_H
 
-#include "blockingtask.h"
-#include "nonblockingtask.h"
-#include "testasynctask.h"
+#include <nitroshare/util/asynctask.h>
 
-void TestAsyncTask::testBlocking()
+class BlockingTask : NitroShare::Util::AsyncTask
 {
-    BlockingTask task;
+    Q_OBJECT
 
-    //...
-}
+    public:
 
-void TestAsyncTask::testNonBlocking()
-{
-    NonBlockingTask task;
+        virtual bool isProgressive() const { return true; }
+        virtual bool isCancelable() const { return true; }
+        virtual bool isBlocking() const { return true; }
 
-    QSignalSpy progress_spy(&task, SIGNAL(progress(int)));
-    QSignalSpy completed_spy(&task, SIGNAL(completed()));
-    QSignalSpy finished_spy(&task, SIGNAL(finished()));
+    public Q_SLOTS:
 
-    task.run();
-    QTest::qWait(600);
+        virtual void run(const QVariantMap & = QVariantMap());
+};
 
-    QCOMPARE(progress_spy.count(), 5);
-    QCOMPARE(completed_spy.count(), 1);
-    QCOMPARE(finished_spy.count(), 1);
-}
+#endif // BLOCKINGTASK_H
+

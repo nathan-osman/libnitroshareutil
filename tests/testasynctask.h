@@ -26,9 +26,9 @@ class TestAsyncTask : public QObject
     Q_OBJECT
     
     private Q_SLOTS:
-    
-        void testNonBlocking();
+
         void testBlocking();
+        void testNonBlocking();
 };
 
 #endif // TESTASYNCTASK_H

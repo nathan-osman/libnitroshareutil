@@ -16,32 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QSignalSpy>
-#include <QTest>
-
 #include "blockingtask.h"
-#include "nonblockingtask.h"
-#include "testasynctask.h"
 
-void TestAsyncTask::testBlocking()
+void BlockingTask::run(const QVariantMap &)
 {
-    BlockingTask task;
-
     //...
-}
-
-void TestAsyncTask::testNonBlocking()
-{
-    NonBlockingTask task;
-
-    QSignalSpy progress_spy(&task, SIGNAL(progress(int)));
-    QSignalSpy completed_spy(&task, SIGNAL(completed()));
-    QSignalSpy finished_spy(&task, SIGNAL(finished()));
-
-    task.run();
-    QTest::qWait(600);
-
-    QCOMPARE(progress_spy.count(), 5);
-    QCOMPARE(completed_spy.count(), 1);
-    QCOMPARE(finished_spy.count(), 1);
 }
