@@ -8,7 +8,24 @@
  * License, or (at your option) any later version.
  */
 
+#include <QCoreApplication>
+#include <QList>
+#include <QTest>
+
+#include "testasynctask.h"
+#include "testparameterbuilder.h"
+
 int main(int argc, char * argv[])
 {
-    return 0;
+    QCoreApplication app(argc, argv);
+    
+    QList<QObject *> tests;
+    tests << new TestAsyncTask
+          << new TestParameterBuilder;
+    
+    int success = 0;
+    foreach(QObject * test, tests)
+        success |= QTest::qExec(test);
+    
+    return success;
 }

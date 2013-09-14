@@ -25,7 +25,7 @@ include_directories(include)
 set(SRC
     src/asynctask.cpp
     src/parameterbuilder.cpp)
-set(MOC
+qt5_wrap_cpp(MOC
     include/nitroshare/util/asynctask.h
     include/nitroshare/util/parameterbuilder.h)
 
