@@ -98,10 +98,9 @@ namespace NitroShare
             public Q_SLOTS:
 
                 /**
-                 * @brief Runs the task
-                 * @param parameters any data expected by the task
+                 * @brief Starts the task in the appropriate way
                  */
-                virtual void run(const QVariantMap & parameters = QVariantMap()) = 0;
+                void start();
 
                 /**
                  * @brief Cancels the task
@@ -118,6 +117,14 @@ namespace NitroShare
                  * @return true if the task was canceled
                  */
                 bool wasCanceled() const;
+
+            protected Q_SLOTS:
+
+                /**
+                 * @brief Runs the task
+                 * @param parameters any data expected by the task
+                 */
+                virtual void run(const QVariantMap & parameters = QVariantMap()) = 0;
 
             private:
 

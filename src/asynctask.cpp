@@ -28,6 +28,23 @@ AsyncTask::~AsyncTask()
     delete d;
 }
 
+void AsyncTask::start()
+{
+    if(isBlocking())
+    {
+        QThread * thread = new QThread;
+        moveToThread(thread);
+        thread->start();
+
+        connect(this, &AsyncTask::finished, thread, &QThread::quit);
+        connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+
+        QMetaObject::invokeMethod(this, SLOT(run()), Qt::QueuedConnection);
+    }
+    else
+        run();
+}
+
 void AsyncTask::cancel()
 {
     d->canceled = true;
