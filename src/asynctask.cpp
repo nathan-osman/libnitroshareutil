@@ -8,49 +8,29 @@
  * License, or (at your option) any later version.
  */
 
-#include <QThread>
-
 #include <nitroshare/util/asynctask.h>
-#include "asynctask_p.h"
 
 using namespace NitroShare::Util;
 
 AsyncTask::AsyncTask(QObject * parent)
-    : QObject(parent), d(new AsyncTaskPrivate)
+    : QObject(parent)
 {
     connect(this, &AsyncTask::canceled,  this, &AsyncTask::finished);
     connect(this, &AsyncTask::error,     this, &AsyncTask::finished);
     connect(this, &AsyncTask::completed, this, &AsyncTask::finished);
 }
 
-AsyncTask::~AsyncTask()
+bool AsyncTask::isProgressive() const
 {
-    delete d;
+    return false;
+}
+
+bool AsyncTask::isCancelable() const
+{
+    return false;
 }
 
 void AsyncTask::start(const QVariantMap & parameters)
 {
-    if(isBlocking())
-    {
-        QThread * thread = new QThread;
-        moveToThread(thread);
-        thread->start();
-
-        connect(this, &AsyncTask::finished, thread, &QThread::quit);
-        connect(thread, &QThread::finished, thread, &QThread::deleteLater);
-
-        QMetaObject::invokeMethod(this, "run", Qt::QueuedConnection, Q_ARG(QVariantMap, parameters));
-    }
-    else
-        run(parameters);
-}
-
-void AsyncTask::cancel()
-{
-    d->canceled = true;
-}
-
-bool AsyncTask::wasCanceled() const
-{
-    return d->canceled;
+    run(parameters);
 }

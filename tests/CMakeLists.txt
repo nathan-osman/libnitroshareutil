@@ -8,12 +8,12 @@ find_package(Qt5Test REQUIRED)
 set(test_SRC
     blockingtask.cpp
     main.cpp
-    nonblockingtask.cpp
+    task.cpp
     testasynctask.cpp
     testparameterbuilder.cpp)
 qt5_wrap_cpp(test_MOC
     blockingtask.h
-    nonblockingtask.h
+    task.h
     testasynctask.h
     testparameterbuilder.h)
 

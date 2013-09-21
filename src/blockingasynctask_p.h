@@ -8,21 +8,24 @@
  * License, or (at your option) any later version.
  */
 
-#ifndef NSU_ASYNCTASK_P_H
-#define NSU_ASYNCTASK_P_H
+#ifndef NSU_BLOCKINGASYNCTASK_P_H
+#define NSU_BLOCKINGASYNCTASK_P_H
+
+#include <QMutex>
 
 namespace NitroShare
 {
     namespace Util
     {
-        class AsyncTaskPrivate
+        class BlockingAsyncTaskPrivate
         {
             public:
 
+                QMutex mutex;
                 bool canceled;
         };
     }
 }
 
-#endif // NSU_ASYNCTASK_P_H
+#endif // NSU_BLOCKINGASYNCTASK_P_H
 

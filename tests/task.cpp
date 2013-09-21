@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "nonblockingtask.h"
+#include "task.h"
 
-void NonBlockingTask::run(const QVariantMap & parameters)
+void Task::run(const QVariantMap & parameters)
 {
     connect(&timer, &QTimer::timeout, [this, parameters]()
     {

@@ -20,8 +20,6 @@ namespace NitroShare
 {
     namespace Util
     {
-        class NSU_EXPORT AsyncTaskPrivate;
-
         /**
          * @brief Base class for all asynchronous tasks
          */
@@ -32,33 +30,26 @@ namespace NitroShare
             public:
 
                 /**
-                 * @brief Creates an instance of the asynchronous task
+                 * @brief Creates the asynchronous task
                  * @param parent the parent QObject
                  */
                 explicit AsyncTask(QObject * parent = nullptr);
 
                 /**
-                 * @brief Destroys the asynchronous task
-                 */
-                virtual ~AsyncTask();
-
-                /**
-                 * @brief Indicates whether the task emits progress updates
+                 * @brief Indicates if the task emits progress updates
                  * @return true if the task is progressive
+                 *
+                 * By default, this method returns false.
                  */
-                virtual bool isProgressive() const = 0;
+                virtual bool isProgressive() const;
 
                 /**
-                 * @brief Indicates whether the task can be canceled once started
+                 * @brief Indicates if the task can be canceled once started
                  * @return true if the task is cancelable
+                 *
+                 * By default, this method returns false.
                  */
-                virtual bool isCancelable() const = 0;
-
-                /**
-                 * @brief Indicates whether the task must be run in a separate thread
-                 * @return true if the task is blocking
-                 */
-                virtual bool isBlocking() const = 0;
+                virtual bool isCancelable() const;
 
             Q_SIGNALS:
 
@@ -95,13 +86,9 @@ namespace NitroShare
                  */
                 void finished();
 
-            public Q_SLOTS:
-
-                /**
-                 * @brief Starts the task in the appropriate way
-                 * @param parameters any data expected by the task
-                 */
-                void start(const QVariantMap & parameters = QVariantMap());
+                // Semantically speaking, this should really be a slot.
+                // However, because it behaves differently depending on
+                // whether this is a blocking task or not, it's a signal.
 
                 /**
                  * @brief Cancels the task
@@ -111,25 +98,26 @@ namespace NitroShare
                  */
                 void cancel();
 
-            protected:
+            public Q_SLOTS:
 
                 /**
-                 * @brief Indicates whether the task was canceled
-                 * @return true if the task was canceled
+                 * @brief Starts the task
+                 * @param parameters any data expected by the task
                  */
-                bool wasCanceled() const;
+                virtual void start(const QVariantMap & parameters = QVariantMap());
 
             protected Q_SLOTS:
 
                 /**
                  * @brief Runs the task
                  * @param parameters any data expected by the task
+                 *
+                 * This method is overridden in derived classes and performs
+                 * the operations of the task. If this is a blocking task, you
+                 * must emit one of canceled(), error(), or completed() before
+                 * this function returns.
                  */
                 virtual void run(const QVariantMap & parameters) = 0;
-
-            private:
-
-                AsyncTaskPrivate * const d;
         };
     }
 }

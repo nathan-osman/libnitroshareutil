@@ -19,9 +19,9 @@
 #ifndef BLOCKINGTASK_H
 #define BLOCKINGTASK_H
 
-#include <nitroshare/util/asynctask.h>
+#include <nitroshare/util/blockingasynctask.h>
 
-class BlockingTask : public NitroShare::Util::AsyncTask
+class BlockingTask : public NitroShare::Util::BlockingAsyncTask
 {
     Q_OBJECT
 
@@ -29,7 +29,6 @@ class BlockingTask : public NitroShare::Util::AsyncTask
 
         virtual bool isProgressive() const { return true; }
         virtual bool isCancelable() const { return true; }
-        virtual bool isBlocking() const { return true; }
 
     private Q_SLOTS:
 

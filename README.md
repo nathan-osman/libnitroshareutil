@@ -2,7 +2,7 @@
 
 This shared library contains a number of utility classes used by NitroShare client applications. Some of these include:
 
- - `AsyncTask` - a base class for asynchronous tasks
+ - `AsyncTask` and `BlockingAsyncTask` - base classes for asynchronous tasks
  - `ParameterBuilder` - simple syntax for constructing a `QVariantMap`
 
 ### Requirements

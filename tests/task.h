@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NONBLOCKINGTASK_H
-#define NONBLOCKINGTASK_H
+#ifndef TASK_H
+#define TASK_H
 
 #include <QTimer>
 
 #include <nitroshare/util/asynctask.h>
 
-class NonBlockingTask : public NitroShare::Util::AsyncTask
+class Task : public NitroShare::Util::AsyncTask
 {
     Q_OBJECT
 
@@ -31,7 +31,6 @@ class NonBlockingTask : public NitroShare::Util::AsyncTask
 
         virtual bool isProgressive() const { return true; }
         virtual bool isCancelable() const { return true; }
-        virtual bool isBlocking() const { return false; }
 
     private Q_SLOTS:
 
@@ -43,4 +42,4 @@ class NonBlockingTask : public NitroShare::Util::AsyncTask
         int count;
 };
 
-#endif // NONBLOCKINGTASK_H
+#endif // TASK_H

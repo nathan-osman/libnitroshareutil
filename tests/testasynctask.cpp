@@ -21,7 +21,7 @@
 
 #include <nitroshare/util/parameterbuilder.h>
 #include "blockingtask.h"
-#include "nonblockingtask.h"
+#include "task.h"
 #include "testasynctask.h"
 
 void TestAsyncTask::testBlocking()
@@ -32,7 +32,7 @@ void TestAsyncTask::testBlocking()
 
 void TestAsyncTask::testNonBlocking()
 {
-    NonBlockingTask task;
+    Task task;
     run(task);
 }
 
