@@ -33,9 +33,9 @@ class NonBlockingTask : public NitroShare::Util::AsyncTask
         virtual bool isCancelable() const { return true; }
         virtual bool isBlocking() const { return false; }
 
-    public Q_SLOTS:
+    private Q_SLOTS:
 
-        virtual void run(const QVariantMap & = QVariantMap());
+        virtual void run(const QVariantMap &);
 
     private:
 

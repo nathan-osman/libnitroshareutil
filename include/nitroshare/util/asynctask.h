@@ -99,8 +99,9 @@ namespace NitroShare
 
                 /**
                  * @brief Starts the task in the appropriate way
+                 * @param parameters any data expected by the task
                  */
-                void start();
+                void start(const QVariantMap & parameters = QVariantMap());
 
                 /**
                  * @brief Cancels the task
@@ -124,7 +125,7 @@ namespace NitroShare
                  * @brief Runs the task
                  * @param parameters any data expected by the task
                  */
-                virtual void run(const QVariantMap & parameters = QVariantMap()) = 0;
+                virtual void run(const QVariantMap & parameters) = 0;
 
             private:
 

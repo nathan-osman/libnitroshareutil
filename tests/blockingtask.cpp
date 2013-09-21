@@ -20,7 +20,7 @@
 
 #include "blockingtask.h"
 
-void BlockingTask::run(const QVariantMap &)
+void BlockingTask::run(const QVariantMap & parameters)
 {
     for(int i = 1; i <= 5; ++i)
     {
@@ -34,5 +34,5 @@ void BlockingTask::run(const QVariantMap &)
         }
     }
 
-    Q_EMIT completed();
+    Q_EMIT completed(parameters);
 }

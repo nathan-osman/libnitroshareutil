@@ -9,8 +9,7 @@ set(VERSION_MINOR 1)
 set(VERSION_PATCH 0)
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-include(CXX11)
-
+include(CXX11.cmake)
 check_for_cxx11_compiler(CXX11_COMPILER)
 if(NOT CXX11_COMPILER)
     message(FATAL_ERROR "Compiler does not support C++11")
@@ -26,8 +25,7 @@ set(SRC
     src/asynctask.cpp
     src/parameterbuilder.cpp)
 qt5_wrap_cpp(MOC
-    include/nitroshare/util/asynctask.h
-    include/nitroshare/util/parameterbuilder.h)
+    include/nitroshare/util/asynctask.h)
 
 add_library(nitroshareutil SHARED ${SRC} ${MOC})
 set_target_properties(nitroshareutil PROPERTIES
@@ -44,8 +42,8 @@ install(TARGETS nitroshareutil
     RUNTIME DESTINATION bin)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/nitroshareutil.pc.in
-    ${CMAKE_CURRENT_BINARY_DIR}/nitroshare.pc @ONLY)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/nitroshare.pc
+    ${CMAKE_CURRENT_BINARY_DIR}/nitroshareutil.pc @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/nitroshareutil.pc
     DESTINATION lib/pkgconfig)
 
 # TODO: make this an option

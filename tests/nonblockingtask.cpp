@@ -18,15 +18,15 @@
 
 #include "nonblockingtask.h"
 
-void NonBlockingTask::run(const QVariantMap &)
+void NonBlockingTask::run(const QVariantMap & parameters)
 {
-    connect(&timer, &QTimer::timeout, [this]()
+    connect(&timer, &QTimer::timeout, [this, parameters]()
     {
         Q_EMIT progress(++count * 20);
 
         if(count == 5)
         {
-            Q_EMIT completed();
+            Q_EMIT completed(parameters);
             timer.stop();
         }
     });

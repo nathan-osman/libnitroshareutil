@@ -28,7 +28,7 @@ AsyncTask::~AsyncTask()
     delete d;
 }
 
-void AsyncTask::start()
+void AsyncTask::start(const QVariantMap & parameters)
 {
     if(isBlocking())
     {
@@ -39,10 +39,10 @@ void AsyncTask::start()
         connect(this, &AsyncTask::finished, thread, &QThread::quit);
         connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 
-        QMetaObject::invokeMethod(this, SLOT(run()), Qt::QueuedConnection);
+        QMetaObject::invokeMethod(this, "run", Qt::QueuedConnection, Q_ARG(QVariantMap, parameters));
     }
     else
-        run();
+        run(parameters);
 }
 
 void AsyncTask::cancel()

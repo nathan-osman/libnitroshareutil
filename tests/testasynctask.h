@@ -21,6 +21,8 @@
 
 #include <QObject>
 
+#include <nitroshare/util/asynctask.h>
+
 class TestAsyncTask : public QObject
 {
     Q_OBJECT
@@ -29,6 +31,10 @@ class TestAsyncTask : public QObject
 
         void testBlocking();
         void testNonBlocking();
+
+    private:
+
+        void run(NitroShare::Util::AsyncTask &);
 };
 
 #endif // TESTASYNCTASK_H

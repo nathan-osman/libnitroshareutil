@@ -21,7 +21,7 @@
 
 #include <nitroshare/util/asynctask.h>
 
-class BlockingTask : NitroShare::Util::AsyncTask
+class BlockingTask : public NitroShare::Util::AsyncTask
 {
     Q_OBJECT
 
@@ -31,9 +31,9 @@ class BlockingTask : NitroShare::Util::AsyncTask
         virtual bool isCancelable() const { return true; }
         virtual bool isBlocking() const { return true; }
 
-    public Q_SLOTS:
+    private Q_SLOTS:
 
-        virtual void run(const QVariantMap & = QVariantMap());
+        virtual void run(const QVariantMap &);
 };
 
 #endif // BLOCKINGTASK_H
