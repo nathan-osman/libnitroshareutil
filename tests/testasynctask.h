@@ -29,12 +29,15 @@ class TestAsyncTask : public QObject
     
     private Q_SLOTS:
 
-        void testBlocking();
-        void testNonBlocking();
+        void testCompleted();
+        void testBlockingCompleted();
+
+        void testCanceled();
+        void testBlockingCanceled();
 
     private:
 
-        void run(NitroShare::Util::AsyncTask &);
+        void run(NitroShare::Util::AsyncTask &, bool);
 };
 
 #endif // TESTASYNCTASK_H

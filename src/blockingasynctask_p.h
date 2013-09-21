@@ -21,6 +21,8 @@ namespace NitroShare
         {
             public:
 
+                BlockingAsyncTaskPrivate();
+
                 QMutex mutex;
                 bool canceled;
         };

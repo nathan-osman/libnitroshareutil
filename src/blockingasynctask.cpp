@@ -16,14 +16,14 @@
 
 using namespace NitroShare::Util;
 
+BlockingAsyncTaskPrivate::BlockingAsyncTaskPrivate()
+    : canceled(false)
+{
+}
+
 BlockingAsyncTask::BlockingAsyncTask(QObject * parent)
     : AsyncTask(parent), d(new BlockingAsyncTaskPrivate)
 {
-    connect(this, &AsyncTask::cancel, [this]()
-    {
-        QMutexLocker locker(&d->mutex);
-        d->canceled = true;
-    });
 }
 
 BlockingAsyncTask::~BlockingAsyncTask()
@@ -36,6 +36,12 @@ void BlockingAsyncTask::start(const QVariantMap & parameters)
     QThread * thread = new QThread;
     moveToThread(thread);
     thread->start();
+
+    connect(this, &AsyncTask::cancel, [this]()
+    {
+        QMutexLocker locker(&d->mutex);
+        d->canceled = true;
+    });
 
     connect(this, &AsyncTask::finished, thread, &QThread::quit);
     connect(thread, &QThread::finished, thread, &QThread::deleteLater);

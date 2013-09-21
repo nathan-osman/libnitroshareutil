@@ -30,7 +30,7 @@ void BlockingTask::run(const QVariantMap & parameters)
         if(wasCanceled())
         {
             Q_EMIT canceled();
-            break;
+            return;
         }
     }
 

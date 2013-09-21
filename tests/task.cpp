@@ -26,10 +26,13 @@ void Task::run(const QVariantMap & parameters)
 
         if(count == 5)
         {
-            Q_EMIT completed(parameters);
             timer.stop();
+            Q_EMIT completed(parameters);
         }
     });
+
+    connect(this, &AsyncTask::cancel, &timer, &QTimer::stop);
+    connect(this, &AsyncTask::cancel, this,   &AsyncTask::canceled);
 
     timer.start(100);
     count = 0;

@@ -24,30 +24,56 @@
 #include "task.h"
 #include "testasynctask.h"
 
-void TestAsyncTask::testBlocking()
-{
-    BlockingTask task;
-    run(task);
-}
-
-void TestAsyncTask::testNonBlocking()
+void TestAsyncTask::testCompleted()
 {
     Task task;
-    run(task);
+    run(task, false);
 }
 
-void TestAsyncTask::run(NitroShare::Util::AsyncTask & task)
+void TestAsyncTask::testBlockingCompleted()
 {
-    QSignalSpy progress_spy(&task, SIGNAL(progress(int)));
+    BlockingTask task;
+    run(task, false);
+}
+
+void TestAsyncTask::testCanceled()
+{
+    Task task;
+    run(task, true);
+}
+
+void TestAsyncTask::testBlockingCanceled()
+{
+    BlockingTask task;
+    run(task, true);
+}
+
+void TestAsyncTask::run(NitroShare::Util::AsyncTask & task, bool cancel)
+{
+    QSignalSpy progress_spy(&task,  SIGNAL(progress(int)));
+    QSignalSpy canceled_spy(&task,  SIGNAL(canceled()));
     QSignalSpy completed_spy(&task, SIGNAL(completed(QVariantMap)));
-    QSignalSpy finished_spy(&task, SIGNAL(finished()));
+    QSignalSpy finished_spy(&task,  SIGNAL(finished()));
 
     task.start(NitroShare::Util::ParameterBuilder("param", 42));
-    QTest::qWait(600);
+    QTest::qWait(cancel?300:600);
 
-    QCOMPARE(progress_spy.count(), 5);
-    QCOMPARE(completed_spy.count(), 1);
+    if(cancel)
+    {
+        task.cancel();
+        QTest::qWait(300);
+    }
+
+    // If we canceled, fewer than five progress signals should have been emitted
+    if(cancel)
+        QVERIFY(0 < progress_spy.count() < 5);
+    else
+        QCOMPARE(progress_spy.count(), 5);
+
+    QCOMPARE(canceled_spy.count(),  cancel?1:0);
+    QCOMPARE(completed_spy.count(), cancel?0:1);
     QCOMPARE(finished_spy.count(), 1);
 
-    QCOMPARE(completed_spy.at(0).at(0).toMap().value("param").toInt(), 42);
+    if(!cancel)
+        QCOMPARE(completed_spy.at(0).at(0).toMap().value("param").toInt(), 42);
 }
