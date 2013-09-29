@@ -12,6 +12,7 @@
 #define NSU_FILEHEADER_H
 
 #include <QFileInfo>
+#include <QSharedPointer>
 
 #include "export.h"
 
@@ -76,6 +77,11 @@ namespace NitroShare
 
                 FileHeaderPrivate * const d;
         };
+
+        /**
+         * @brief A shared pointer to a FileHeader
+         */
+        typedef QSharedPointer<FileHeader> FileHeaderPointer;
     }
 }
 

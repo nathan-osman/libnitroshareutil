@@ -20,6 +20,14 @@ namespace NitroShare
     {
         /**
          * @brief Enumerates all files and subdirectories in a directory
+         *
+         * The run() method expects a single parameter, "directory", which
+         * is a QString containing an absolute filesystem path. Assuming no
+         * errors occurred, the completed() signal will be emitted with two
+         * parameters:
+         *
+         * \li headers a QList<FileHeaderPointer>
+         * \li size a qint64 containing the total size of all files
          */
         class NSU_EXPORT DirectoryEnumerator : public BlockingAsyncTask
         {
@@ -27,21 +35,10 @@ namespace NitroShare
 
             public:
 
-                /**
-                 * @brief Indicates if the task can be canceled once started
-                 * @return true
-                 */
-                virtual bool isCancelable() const;
+                virtual bool cancelable() const;
 
             private Q_SLOTS:
 
-                /**
-                 * @brief Runs the task
-                 * @param parameters see below
-                 *
-                 * This task expects a single parameter, "directory", which
-                 * represents the directory to be enumerated.
-                 */
                 virtual void run(const QVariantMap & parameters);
         };
     }
