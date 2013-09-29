@@ -29,8 +29,8 @@ class Task : public NitroShare::Util::AsyncTask
 
     public:
 
-        virtual bool isProgressive() const { return true; }
-        virtual bool isCancelable() const { return true; }
+        virtual bool progressive() const { return true; }
+        virtual bool cancelable() const { return true; }
 
     private Q_SLOTS:
 
