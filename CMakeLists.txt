@@ -31,7 +31,7 @@ set(SRC
 qt5_wrap_cpp(MOC
     include/nitroshare/util/asynctask.h
     include/nitroshare/util/blockingasynctask.h
-    include/nitroshare/util/directoryenumerator.h)
+    src/directoryenumerator.h)
 
 add_library(nitroshareutil SHARED ${SRC} ${MOC})
 set_target_properties(nitroshareutil PROPERTIES

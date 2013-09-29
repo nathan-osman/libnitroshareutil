@@ -12,23 +12,11 @@
 #define NSU_DIRECTORYENUMERATOR_H
 
 #include <nitroshare/util/blockingasynctask.h>
-#include "export.h"
 
 namespace NitroShare
 {
     namespace Util
     {
-        /**
-         * @brief Enumerates all files and subdirectories in a directory
-         *
-         * The run() method expects a single parameter, "directory", which
-         * is a QString containing an absolute filesystem path. Assuming no
-         * errors occurred, the completed() signal will be emitted with two
-         * parameters:
-         *
-         * \li headers a QList<FileHeaderPointer>
-         * \li size a qint64 containing the total size of all files
-         */
         class NSU_EXPORT DirectoryEnumerator : public BlockingAsyncTask
         {
             Q_OBJECT

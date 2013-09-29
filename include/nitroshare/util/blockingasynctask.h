@@ -46,10 +46,6 @@ namespace NitroShare
 
             public Q_SLOTS:
 
-                /**
-                 * @brief Starts the task
-                 * @param parameters any data expected by the task
-                 */
                 virtual void start(const QVariantMap & parameters = QVariantMap());
 
             protected:

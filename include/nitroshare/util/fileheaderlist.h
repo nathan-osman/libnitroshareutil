@@ -11,19 +11,72 @@
 #ifndef NSU_FILEHEADERLIST_H
 #define NSU_FILEHEADERLIST_H
 
+#include <QSharedPointer>
+
+#include <nitroshare/util/asynctask.h>
+#include <nitroshare/util/fileheader.h>
 #include "export.h"
 
 namespace NitroShare
 {
     namespace Util
     {
+        class NSU_EXPORT FileHeaderListPrivate;
+
+        /**
+         * @brief A list of FileHeaders
+         */
         class NSU_EXPORT FileHeaderList
         {
             public:
 
-                //...
+                /**
+                 * @brief Creates an empty FileHeader list
+                 */
+                FileHeaderList();
+
+                /**
+                 * @brief Destroys the list
+                 */
+                ~FileHeaderList();
+
+                /**
+                 * @brief Adds the specified file to the list
+                 * @param filename the absolute path of the file to add
+                 */
+                void addFile(const QString & filename);
+
+                /**
+                 * @brief Adds the header to the list
+                 * @param header the header to add
+                 */
+                void addHeader(FileHeaderPointer header);
+
+                /**
+                 * @brief Adds the specified directory to the list
+                 * @param directory the absolute path of the directory to add
+                 * @return the asynchronous task created to enumerate the directory
+                 *
+                 * This method returns immediately but begins enumerating the
+                 * contents of the directory in a separate thread.
+                 */
+                AsyncTask * addDirectory(const QString & directory);
+
+                /**
+                 * @brief Returns the combined size of all files in the list
+                 * @return the total size of all files
+                 */
+                qint64 size() const;
+
+            private:
+
+                FileHeaderListPrivate * const d;
         };
+
+        typedef QSharedPointer<FileHeaderList> FileHeaderListPointer;
     }
 }
+
+Q_DECLARE_METATYPE(NitroShare::Util::FileHeaderListPointer)
 
 #endif // NSU_FILEHEADERLIST_H

@@ -13,9 +13,9 @@
 #include <QList>
 #include <QStack>
 
-#include <nitroshare/util/directoryenumerator.h>
-#include <nitroshare/util/fileheader.h>
+#include <nitroshare/util/fileheaderlist.h>
 #include <nitroshare/util/parameterbuilder.h>
+#include "directoryenumerator.h"
 
 using namespace NitroShare::Util;
 
@@ -26,49 +26,39 @@ bool DirectoryEnumerator::cancelable() const
 
 void DirectoryEnumerator::run(const QVariantMap & parameters)
 {
-    try
+    FileHeaderListPointer headers(new FileHeaderList);
+    qint64 size = 0;
+
+    QStack<FileHeaderPointer> stack;
+    stack.push(FileHeaderPointer(new FileHeader(parameters["directory"].toString())));
+
+    while(stack.count())
     {
-        if(!parameters.contains("directory"))
-            throw(tr("\"directory parameter is missing\""));
-
-        QList<FileHeaderPointer> headers;
-        qint64 size = 0;
-
-        QStack<FileHeaderPointer> stack;
-        stack.push(FileHeaderPointer(new FileHeader(parameters["directory"].toString())));
-
-        while(stack.count())
+        if(wasCanceled())
         {
-            if(wasCanceled())
-            {
-                emit canceled();
-                return;
-            }
-
-            FileHeaderPointer tos = stack.pop();
-            QFileInfoList contents = QDir(tos->absoluteFilename())
-                .entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot);
-
-            foreach(QFileInfo info, contents)
-            {
-                FileHeaderPointer header(new FileHeader(info,
-                    QString("%1/%3").arg(tos->relativeFilename()).arg(info.fileName())));
-
-                if(info.isDir())
-                    stack.push(header);
-                else
-                {
-                    headers.append(header);
-                    size += info.size();
-                }
-            }
+            emit canceled();
+            return;
         }
 
-        emit completed(ParameterBuilder() << "headers" << QVariant::fromValue(headers)
-                                          << "size"    << size);
+        FileHeaderPointer tos = stack.pop();
+        QFileInfoList contents = QDir(tos->absoluteFilename())
+            .entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot);
+
+        foreach(QFileInfo info, contents)
+        {
+            FileHeaderPointer header(new FileHeader(info,
+                QString("%1/%3").arg(tos->relativeFilename()).arg(info.fileName())));
+
+            if(info.isDir())
+                stack.push(header);
+            else
+            {
+                headers->addHeader(header);
+                size += info.size();
+            }
+        }
     }
-    catch(QString message)
-    {
-        emit error(message);
-    }
+
+    emit completed(ParameterBuilder() << "headers" << QVariant::fromValue(headers)
+                                      << "size"    << size);
 }
