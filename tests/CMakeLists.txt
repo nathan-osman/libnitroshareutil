@@ -10,11 +10,13 @@ set(test_SRC
     main.cpp
     task.cpp
     testasynctask.cpp
+    testfileheader.cpp
     testparameterbuilder.cpp)
 qt5_wrap_cpp(test_MOC
     blockingtask.h
     task.h
     testasynctask.h
+    testfileheader.h
     testparameterbuilder.h)
 
 add_executable(tests ${test_SRC} ${test_MOC})
