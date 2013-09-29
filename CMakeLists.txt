@@ -25,6 +25,7 @@ set(SRC
     src/asynctask.cpp
     src/blockingasynctask.cpp
     src/directoryenumerator.cpp
+    src/fileheader.cpp
     src/parameterbuilder.cpp)
 qt5_wrap_cpp(MOC
     include/nitroshare/util/asynctask.h
