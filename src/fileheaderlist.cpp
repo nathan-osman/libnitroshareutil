@@ -48,7 +48,7 @@ AsyncTask * FileHeaderList::addDirectory(const QString & directory)
 
     QObject::connect(enumerator, &AsyncTask::completed, [this](const QVariantMap & parameters)
     {
-        // TODO: add the new headers to the list
+        d->headers.append(parameters["headers"].value<FileHeaderListPointer>()->d->headers);
         d->size += parameters["size"].toLongLong();
     });
     QObject::connect(enumerator, &AsyncTask::finished, enumerator, &QObject::deleteLater);
