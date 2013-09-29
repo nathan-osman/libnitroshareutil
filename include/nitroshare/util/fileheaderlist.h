@@ -73,6 +73,9 @@ namespace NitroShare
                 FileHeaderListPrivate * const d;
         };
 
+        /**
+         * @brief A shared pointer to a FileHeaderList
+         */
         typedef QSharedPointer<FileHeaderList> FileHeaderListPointer;
     }
 }

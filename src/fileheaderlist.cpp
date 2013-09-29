@@ -34,7 +34,7 @@ FileHeaderList::~FileHeaderList()
 
 void FileHeaderList::addFile(const QString & filename)
 {
-    d->headers.append(FileHeaderPointer(new FileHeader(QFileInfo(filename))));
+    addHeader(FileHeaderPointer(new FileHeader(QFileInfo(filename))));
 }
 
 void FileHeaderList::addHeader(FileHeaderPointer header)

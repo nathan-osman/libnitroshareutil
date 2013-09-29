@@ -3,8 +3,8 @@
 This shared library contains a number of utility classes used by NitroShare client applications. Some of these include:
 
  - `AsyncTask` and `BlockingAsyncTask` - base classes for asynchronous tasks
- - `DirectoryEnumerator` - asynchronous task for enumerating files in a directory
- - `FileHeader` and `FileHeaderList` - classes for storing file metadata
+ - `FileHeader` - storage for file metadata
+ - `FileHeaderList` - collection of headers and directory enumeration
  - `ParameterBuilder` - simple syntax for constructing a `QVariantMap`
 
 ### Requirements

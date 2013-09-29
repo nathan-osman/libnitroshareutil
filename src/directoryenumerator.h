@@ -17,7 +17,7 @@ namespace NitroShare
 {
     namespace Util
     {
-        class NSU_EXPORT DirectoryEnumerator : public BlockingAsyncTask
+        class DirectoryEnumerator : public BlockingAsyncTask
         {
             Q_OBJECT
 
