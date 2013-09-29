@@ -20,12 +20,12 @@ AsyncTask::AsyncTask(QObject * parent)
     connect(this, &AsyncTask::completed, this, &AsyncTask::finished);
 }
 
-bool AsyncTask::isProgressive() const
+bool AsyncTask::progressive() const
 {
     return false;
 }
 
-bool AsyncTask::isCancelable() const
+bool AsyncTask::cancelable() const
 {
     return false;
 }

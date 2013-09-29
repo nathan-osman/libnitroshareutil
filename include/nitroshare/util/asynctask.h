@@ -41,7 +41,7 @@ namespace NitroShare
                  *
                  * By default, this method returns false.
                  */
-                virtual bool isProgressive() const;
+                virtual bool progressive() const;
 
                 /**
                  * @brief Indicates if the task can be canceled once started
@@ -49,7 +49,7 @@ namespace NitroShare
                  *
                  * By default, this method returns false.
                  */
-                virtual bool isCancelable() const;
+                virtual bool cancelable() const;
 
             Q_SIGNALS:
 
@@ -94,7 +94,7 @@ namespace NitroShare
                  * @brief Cancels the task
                  *
                  * Not all tasks can be canceled. You can determine if a task
-                 * can be canceled with isCancelable().
+                 * can be canceled with cancelable().
                  */
                 void cancel();
 
