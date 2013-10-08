@@ -4,6 +4,8 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(nitroshareutil)
 
+OPTION(BUILD_TESTS "Causes the test suite to be built" ON)
+
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
 set(VERSION_PATCH 0)
@@ -52,6 +54,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/nitroshareutil.pc.in
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/nitroshareutil.pc
     DESTINATION lib/pkgconfig)
 
-# TODO: make this an option
-enable_testing()
-add_subdirectory(tests)
+if(BUILD_TESTS)
+    add_subdirectory(tests)
+endif()
