@@ -8,6 +8,8 @@
  * License, or (at your option) any later version.
  */
 
+#include <QEventLoop>
+
 #include <nitroshare/util/asynctask.h>
 
 using namespace NitroShare::Util;
@@ -28,6 +30,23 @@ bool AsyncTask::progressive() const
 bool AsyncTask::cancelable() const
 {
     return false;
+}
+
+bool AsyncTask::waitForFinished()
+{
+    QEventLoop loop;
+    bool completed = false;
+
+    loop.connect(this, &AsyncTask::canceled, &loop, &QEventLoop::quit);
+    loop.connect(this, &AsyncTask::error,    &loop, &QEventLoop::quit);
+    loop.connect(this, &AsyncTask::completed, [&loop, &completed]()
+    {
+        completed = true;
+        loop.quit();
+    });
+
+    loop.exec();
+    return completed;
 }
 
 void AsyncTask::start(const QVariantMap & parameters)

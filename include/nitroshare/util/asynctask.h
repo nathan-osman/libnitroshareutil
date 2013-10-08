@@ -51,6 +51,14 @@ namespace NitroShare
                  */
                 virtual bool cancelable() const;
 
+                /**
+                 * @brief Waits for the finished() signal to be emitted
+                 * @return true if the task completed
+                 *
+                 * This method blocks but contains its own event loop.
+                 */
+                bool waitForFinished();
+
             Q_SIGNALS:
 
                 /**
