@@ -18,3 +18,22 @@ In order to build the library, the following dependencies must be met:
  - CXX11.cmake (available [here](https://github.com/NitroShare/CXX11-CMake-Macros))
  - Qt 5.0+
 
+### Building
+
+To build the shared library, please follow the steps below:
+
+1. Begin by creating a directory for the compiled files and change to that directory:
+
+        mkdir build
+        cd build
+
+2. Run CMake:
+
+        cmake <source path>
+
+   The source path is the directory containing the libnitroshareutil source code.
+
+3. Build and install the shared library:
+
+        make
+        sudo make install
