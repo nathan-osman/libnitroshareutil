@@ -17,11 +17,20 @@
 
 using namespace NitroShare::Util;
 
+#include <QDebug>
+
 void TestFileHeaderList::run()
 {
     QDir temp(QDir::temp());
 
-    // Create a directory to use for testing
+    // Test for the temp directory and purge it if it exists
+    if(temp.cd("headertest"))
+    {
+        QVERIFY(temp.removeRecursively());
+        QVERIFY(temp.cdUp());
+    }
+
+    // Create the temp directory
     QVERIFY(temp.mkdir("headertest"));
     QVERIFY(temp.cd("headertest"));
 
@@ -32,7 +41,7 @@ void TestFileHeaderList::run()
 
     // Add them to the file list
     FileHeaderList list;
-    list.addDirectory(temp.absolutePath());
+    QVERIFY(list.addDirectory(temp.absolutePath())->waitForFinished());
 }
 
 void TestFileHeaderList::createEmptyFile(const QString & filename)
