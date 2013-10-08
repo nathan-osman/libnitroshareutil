@@ -29,7 +29,8 @@ void TestFileHeader::run()
     QVERIFY(file.write("42"));
     file.close();
 
-    FileHeader header(QFileInfo(filename));
+    QFileInfo info(filename);
+    FileHeader header(info);
     QCOMPARE(header.absoluteFilename(), filename);
     QCOMPARE(header.relativeFilename(), QString("test.txt"));
     QCOMPARE(header.size(),             qint64(2));
