@@ -14,6 +14,7 @@
 
 #include "testasynctask.h"
 #include "testfileheader.h"
+#include "testfileheaderlist.h"
 #include "testparameterbuilder.h"
 
 int main(int argc, char * argv[])
@@ -23,6 +24,7 @@ int main(int argc, char * argv[])
     QList<QObject *> tests;
     tests << new TestAsyncTask
           << new TestFileHeader
+          << new TestFileHeaderList
           << new TestParameterBuilder;
     
     int success = 0;
