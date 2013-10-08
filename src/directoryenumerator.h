@@ -13,23 +13,17 @@
 
 #include <nitroshare/util/blockingasynctask.h>
 
-namespace NitroShare
+class DirectoryEnumerator : public NitroShare::Util::BlockingAsyncTask
 {
-    namespace Util
-    {
-        class DirectoryEnumerator : public BlockingAsyncTask
-        {
-            Q_OBJECT
+    Q_OBJECT
 
-            public:
+    public:
 
-                virtual bool cancelable() const;
+        virtual bool cancelable() const;
 
-            private Q_SLOTS:
+    private Q_SLOTS:
 
-                virtual void run(const QVariantMap & parameters);
-        };
-    }
-}
+        virtual void run(const QVariantMap & parameters);
+};
 
 #endif // NSU_DIRECTORYENUMERATOR_H
