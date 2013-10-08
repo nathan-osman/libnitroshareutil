@@ -11,6 +11,7 @@
 #ifndef NSU_FILEHEADERLIST_H
 #define NSU_FILEHEADERLIST_H
 
+#include <QList>
 #include <QSharedPointer>
 
 #include <nitroshare/util/asynctask.h>
@@ -24,7 +25,7 @@ namespace NitroShare
         class NSU_EXPORT FileHeaderListPrivate;
 
         /**
-         * @brief A list of FileHeaders
+         * @brief A list of FileHeaderPointers
          */
         class NSU_EXPORT FileHeaderList
         {
@@ -61,6 +62,12 @@ namespace NitroShare
                  * contents of the directory in a separate thread.
                  */
                 AsyncTask * addDirectory(const QString & directory);
+
+                /**
+                 * @brief Returns a reference to the underlying list
+                 * @return a list of FileHeaderPointers
+                 */
+                const QList<FileHeaderPointer> & headers() const;
 
                 /**
                  * @brief Returns the combined size of all files in the list

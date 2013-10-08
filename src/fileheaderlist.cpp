@@ -57,6 +57,11 @@ AsyncTask * FileHeaderList::addDirectory(const QString & directory)
     return enumerator;
 }
 
+const QList<FileHeaderPointer> & FileHeaderList::headers() const
+{
+    return d->headers;
+}
+
 qint64 FileHeaderList::size() const
 {
     return d->size;
