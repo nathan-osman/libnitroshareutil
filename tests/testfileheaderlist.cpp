@@ -17,7 +17,10 @@
 
 using namespace NitroShare::Util;
 
-#include <QDebug>
+TestFileHeaderList::TestFileHeaderList()
+    : count(0), size(0)
+{
+}
 
 void TestFileHeaderList::run()
 {
@@ -30,23 +33,39 @@ void TestFileHeaderList::run()
         QVERIFY(temp.cdUp());
     }
 
-    // Create the temp directory
     QVERIFY(temp.mkdir("headertest"));
     QVERIFY(temp.cd("headertest"));
 
-    // Create a and an empty file or two
-    QVERIFY(temp.mkdir("a"));
-    createEmptyFile(temp.absoluteFilePath("a/file1"));
-    createEmptyFile(temp.absoluteFilePath("a/file2"));
+    for(int i = 1; i <= 5; ++i)
+        createAndFillDirectory(temp.absoluteFilePath(QString("dir%1").arg(i)));
 
-    // Add them to the file list
     FileHeaderList list;
     QVERIFY(list.addDirectory(temp.absolutePath())->waitForFinished());
+
+    QCOMPARE(list.headers().count(), count);
+    QCOMPARE(list.size(),            size);
+
+    // Clean up the test directory
+    temp.removeRecursively();
+}
+
+void TestFileHeaderList::createAndFillDirectory(const QString & directory)
+{
+    QDir dir(directory);
+    dir.mkdir(directory);
+
+    for(int i = 1; i <= 5; ++i)
+        createEmptyFile(dir.absoluteFilePath(QString("file%1.txt").arg(i)));
+
+    count += 5;
 }
 
 void TestFileHeaderList::createEmptyFile(const QString & filename)
 {
     QFile file(filename);
+
     QVERIFY(file.open(QIODevice::WriteOnly));
     QVERIFY(file.write("42"));
+
+    size += 2;
 }

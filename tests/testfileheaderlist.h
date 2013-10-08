@@ -17,13 +17,21 @@ class TestFileHeaderList : public QObject
 {
     Q_OBJECT
 
+    public:
+
+        TestFileHeaderList();
+
     private Q_SLOTS:
 
         void run();
 
     private:
 
+        void createAndFillDirectory(const QString & );
         void createEmptyFile(const QString & filename);
+
+        int count;
+        qint64 size;
 };
 
 #endif // TESTFILEHEADERLIST_H
