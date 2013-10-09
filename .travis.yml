@@ -9,7 +9,7 @@ before_install:
   - sudo apt-get update
 
 install:
-  - sudo apt-get -y install qtbase5-dev qt5-default
+  - sudo apt-get -y install qtbase5-dev qt5-default cmake
 
 before_script:
   - wget https://raw.github.com/nitroshare/CXX11-CMake-Macros/master/CXX11.cmake
