@@ -1,0 +1,20 @@
+language: cpp
+
+compiler:
+  - gcc
+
+before_install:
+  - apt-add-repository ppa:ubuntu-sdk-team/ppa
+  - apt-get update
+
+install:
+  - apt-get install qtbase5-dev qt5-default
+
+before_script:
+  - mkdir build
+  - cd build
+  - cmake ..
+
+script:
+  - make
+
