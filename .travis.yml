@@ -5,12 +5,14 @@ compiler:
 
 before_install:
   - sudo apt-add-repository -y ppa:ubuntu-sdk-team/ppa
+  - sudo apt-add-repository -y ppa:george-edison55/cmake-precise
   - sudo apt-get update
 
 install:
   - sudo apt-get -y install qtbase5-dev qt5-default
 
 before_script:
+  - wget https://raw.github.com/nitroshare/CXX11-CMake-Macros/master/CXX11.cmake
   - mkdir build
   - cd build
   - cmake ..
