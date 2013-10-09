@@ -4,11 +4,11 @@ compiler:
   - gcc
 
 before_install:
-  - sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
+  - sudo apt-add-repository -y ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update
 
 install:
-  - sudo apt-get install qtbase5-dev qt5-default
+  - sudo apt-get -y install qtbase5-dev qt5-default
 
 before_script:
   - mkdir build
