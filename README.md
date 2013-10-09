@@ -1,5 +1,7 @@
 ## libnitroshareutil
 
+[![Build Status](https://travis-ci.org/nitroshare/libnitroshareutil.png?branch=master)](https://travis-ci.org/nitroshare/libnitroshareutil)
+
 This shared library contains a number of utility classes used by NitroShare client applications. Some of these include:
 
  - `AsyncTask` and `BlockingAsyncTask` - base classes for asynchronous tasks
